@@ -8,13 +8,20 @@ const { promisify } = require('util');
 const request = promisify(require('request'));
 const { Pool } = require('pg');
 const api = require('../index');
+const Ajv = require('ajv');
+const { pathToRegexp } = require('path-to-regexp');
+const ajv = new Ajv({
+    allErrors: true
+});
 
 class Flight {
 
     constructor() {
-        this.srv;
-        this.pool;
-        this.config;
+        this.base = 'http://localhost:4999';
+        this.token = {};
+        this.srv = false;
+        this.pool = false;
+        this.config = false;
     }
 
     /**
